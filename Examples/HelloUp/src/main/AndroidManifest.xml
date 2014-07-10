@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.jawbone.helloup" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name" >
+        <activity
+            android:name=".HelloUpActivity"
+            android:label="@string/app_name"
+            android:theme="@style/FullscreenTheme" >
+          <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+          </intent-filter>
+          <intent-filter>
+            <action android:name="com.jawbone.helloup.HelloUpActivity" />
+
+            <category android:name="android.intent.category.DEFAULT" />
+          </intent-filter>
+
+
+        </activity>
+        <activity
+            android:name="com.jawbone.upplatformsdk.oauth.OauthWebViewActivity"
+            android:label="@string/sdk_name" >
+            <intent-filter>
+                <action android:name="com.jawbone.upplatformsdk.oauth.OauthWebViewActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".UpApiListActivity"
+            android:label="@string/title_activity_up_api_list" >
+        </activity>
+        <activity
+            android:name=".UpApiCallResultActivity"
+            android:label="@string/title_activity_up_api_call_result" >
+        </activity>
+    </application>
+
+</manifest>
