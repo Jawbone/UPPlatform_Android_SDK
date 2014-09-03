@@ -8,24 +8,26 @@ package com.jawbone.helloup;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
-import android.widget.TextView;
 
-import com.android.volley.VolleyError;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.type.SimpleType;
-import com.jawbone.upplatformsdk.api.UpApiWrapper;
+import com.jawbone.upplatformsdk.api.ApiManager;
 import com.jawbone.upplatformsdk.api.response.OauthAccessTokenResponse;
+import com.jawbone.upplatformsdk.oauth.OauthWebViewActivity;
 import com.jawbone.upplatformsdk.utils.UpPlatformSdkUtils;
-import com.spothero.volley.JacksonRequestListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class HelloUpActivity extends Activity {
 
@@ -35,47 +37,34 @@ public class HelloUpActivity extends Activity {
     public static final String UP_PLATFORM_REFRESH_TOKEN = "refresh_token";
 
     // These are obtained after registering on Jawbone Developer Portal
-    private static final String CLIENT_ID = "<insert-client-id>";
-    private static final String CLIENT_SECRET = "<insert-client-secret";
+    private static final String CLIENT_ID = "CCVLFloNu8c";
+    private static final String CLIENT_SECRET = "e239462834aa6fc899f84a754f855f56";
+//    private static final String CLIENT_ID = "<insert-client-id>";
+//    private static final String CLIENT_SECRET = "<insert-client-secret>";
 
     // This has to be identical to the callback url setup in Jawbone Developer Portal
-    private static final String OAUTH_CALLBACK_URL = "<insert-callback-url>";
+    private static final String OAUTH_CALLBACK_URL = "http://localhost/helloup?";
+//    private static final String OAUTH_CALLBACK_URL = "<insert-callback-url>";
 
     private List<UpPlatformSdkUtils.UpPlatformAuthScope> authScope;
-
-    // Access and Refresh Tokens returned by server after successful OAuth authentication
-    private String mAccessTokenFromServer;
-    private String mRefreshToken;
-
-    private UpApiWrapper upApiWrapper;
-
-    private TextView mealsText;
-    private Button mealsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.hello_up);
-
-        mealsText = (TextView) findViewById(R.id.authorizeText2);
-        mealsButton = (Button) findViewById(R.id.authorizeButton2);
 
         // Set required levels of permissions here
         authScope  = new ArrayList<UpPlatformSdkUtils.UpPlatformAuthScope>();
         authScope.add(UpPlatformSdkUtils.UpPlatformAuthScope.ALL);
 
-        upApiWrapper = UpApiWrapper.getInstance();
-        upApiWrapper.init(this);
-        upApiWrapper.setUserCredentials(CLIENT_ID, CLIENT_SECRET, OAUTH_CALLBACK_URL, authScope);
-
         Button oAuthAuthorizeButton = (Button) findViewById(R.id.authorizeButton);
         oAuthAuthorizeButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                // launch the WebView ...
-                Intent intent = upApiWrapper.getIntentForWebView();
-                startActivityForResult(intent, UpPlatformSdkUtils.JAWBONE_AUTHORIZE_REQUEST_CODE);
+            Intent intent = getIntentForWebView();
+            startActivityForResult(intent, UpPlatformSdkUtils.JAWBONE_AUTHORIZE_REQUEST_CODE);
             }
         });
     }
@@ -83,54 +72,46 @@ public class HelloUpActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == UpPlatformSdkUtils.JAWBONE_AUTHORIZE_REQUEST_CODE && resultCode == RESULT_OK) {
-            String code = data.getStringExtra(UpPlatformSdkUtils.ACCESS_CODE);
 
-            if (code != null)
-                upApiWrapper.makeAccessTokenRequest(code, accessTokenRequestListener);
+            String code = data.getStringExtra(UpPlatformSdkUtils.ACCESS_CODE);
+            if (code != null) {
+                ApiManager.getRestApiInterface().getAccessToken(
+                    CLIENT_ID,
+                    CLIENT_SECRET,
+                    code,
+                    accessTokenRequestListener);
+            }
         }
    }
 
-    private JacksonRequestListener<OauthAccessTokenResponse> accessTokenRequestListener = new JacksonRequestListener<OauthAccessTokenResponse>() {
+    private Callback accessTokenRequestListener = new Callback<OauthAccessTokenResponse>() {
         @Override
-        public void onResponse(OauthAccessTokenResponse response, int statusCode, VolleyError error) {
-            if (response != null) {
-                Log.d(TAG, "--------------------------");
-                Log.d(TAG, "expires_in:" + response.expiresIn);
-                Log.d(TAG, "token_type:" + response.tokenType);
-                Log.d(TAG, "access_token:" + response.accessToken);
-                Log.d(TAG, "refresh_token:" + response.refreshToken);
-                Log.d(TAG, "--------------------------");
+        public void success(OauthAccessTokenResponse result, Response response) {
 
-                mAccessTokenFromServer = response.accessToken;
-                mRefreshToken = response.refreshToken;
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(HelloUpActivity.this);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString(UP_PLATFORM_ACCESS_TOKEN, result.access_token);
+            editor.putString(UP_PLATFORM_REFRESH_TOKEN, result.refresh_token);
+            editor.commit();
 
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(HelloUpActivity.this);
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putString(UP_PLATFORM_ACCESS_TOKEN,mAccessTokenFromServer);
-                editor.putString(UP_PLATFORM_REFRESH_TOKEN,mRefreshToken);
-                editor.commit();
+            Intent intent = new Intent(HelloUpActivity.this, UpApiListActivity.class);
+            startActivity(intent);
 
-                Intent intent = new Intent(HelloUpActivity.this, UpApiListActivity.class);
-                startActivity(intent);
-
-//                mealsText.setVisibility(View.VISIBLE);
-//                mealsButton.setVisibility(View.VISIBLE);
-//
-//                mealsButton.setOnClickListener(new OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        //Get Meals List
-//                        upApiWrapper.getMealsListRequest(getMealsListListener, mAccessTokenFromServer);
-//                    }
-//                });
-            } else {
-                Log.e(TAG, Log.getStackTraceString(error));
-            }
+            Log.e(TAG, "accessToken:" + result.access_token);
         }
 
         @Override
-        public JavaType getReturnType() {
-            return SimpleType.construct(OauthAccessTokenResponse.class);
+        public void failure(RetrofitError retrofitError) {
+            Log.e(TAG, "failed to get accessToken:" + retrofitError.getMessage());
         }
     };
+
+    private Intent getIntentForWebView() {
+        Uri.Builder builder = UpPlatformSdkUtils.setOauthParameters(CLIENT_ID, OAUTH_CALLBACK_URL, authScope);
+
+        Intent intent = new Intent(OauthWebViewActivity.class.getName());
+        intent.putExtra(UpPlatformSdkUtils.AUTH_URI, builder.build());
+        return intent;
+    }
+
 }

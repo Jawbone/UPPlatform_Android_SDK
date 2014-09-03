@@ -19,11 +19,11 @@
 
     <Button
         android:id="@+id/authorizeButton"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="60dp"
         android:layout_marginRight="60dp"
-        android:background="@drawable/btn_black" />
+        android:background="@drawable/jawbone_button" />
 
     <TextView
         android:id="@+id/authorizeText2"

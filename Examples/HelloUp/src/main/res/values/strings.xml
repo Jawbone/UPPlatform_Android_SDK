@@ -4,7 +4,7 @@
     <string name="app_name">Hello Up</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="press_button_to_connect">Press Button to Authorize</string>
+    <string name="press_button_to_connect">Press button to connect</string>
     <string name="press_button_to_list_of_meals">Press Button to get Meals Data</string>
     <string name="title_activity_up_api_list">UpApiListActivity</string>
     <string name="hello_world">Hello world!</string>

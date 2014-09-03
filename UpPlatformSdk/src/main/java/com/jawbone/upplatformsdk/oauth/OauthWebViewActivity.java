@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Window;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -18,7 +19,7 @@ import com.jawbone.upplatformsdk.R;
 import com.jawbone.upplatformsdk.utils.UpPlatformSdkUtils;
 
 /**
- * Simple Webview for OAuth authorization
+ * Simple Webview for Oauth authorization
  */
 public class OauthWebViewActivity extends Activity {
 
@@ -30,6 +31,8 @@ public class OauthWebViewActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+
         setContentView(R.layout.oauth_webview);
 
         Intent intent = this.getIntent();
@@ -41,7 +44,7 @@ public class OauthWebViewActivity extends Activity {
         webview.setWebViewClient(new WebViewClient() {
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 String accessCodeFragment = "&code=";
-                Log.d(TAG, "oauth response from server: " + url);
+                Log.e(TAG, "oauth response from server: " + url);
 
                 int start = url.indexOf(accessCodeFragment);
 

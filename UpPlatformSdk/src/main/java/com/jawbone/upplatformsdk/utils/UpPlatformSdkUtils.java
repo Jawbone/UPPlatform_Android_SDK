@@ -17,8 +17,8 @@ public class UpPlatformSdkUtils {
 
     private static final String TAG = UpPlatformSdkUtils.class.getSimpleName();
 
-    private static final String JAWBONE_API_VERSION = "v.1.1";
     private static final String JAWBONE_API_PREFIX = "nudge/api/";
+    public static final String JAWBONE_API_VERSION = "v.1.1";
 
     public static final int JAWBONE_AUTHORIZE_REQUEST_CODE = 120501;
 
@@ -51,12 +51,6 @@ public class UpPlatformSdkUtils {
         ALL;
     }
 
-    /**
-     * Set up parameters for OAuth call
-     * @param clientId Generated when we register on Jawbone Developer Portal
-     * @param scope Scope of permissions requested
-     * @return Appropriately populated builder
-     */
     public static Uri.Builder setOauthParameters(String clientId, String callbackUrl, List<UpPlatformAuthScope> scope) {
         Uri.Builder builder = UpPlatformSdkUtils.setBaseParameters();
 
@@ -166,56 +160,11 @@ public class UpPlatformSdkUtils {
         }
     }
 
-    public static Uri.Builder setAccessTokenRequestParameters(String clientId, String clientSecret, Uri.Builder builder, String authorizationCode) {
-        builder.appendPath("auth");
-        builder.appendPath("oauth2");
-        builder.appendPath("token");
-        builder.appendQueryParameter("grant_type", "authorization_code");
-        builder.appendQueryParameter("client_id", clientId);
-        builder.appendQueryParameter("client_secret", clientSecret);
-        builder.appendQueryParameter("code", authorizationCode);
-
-        return builder;
-    }
-
     public static Uri.Builder setBaseParameters() {
         Uri.Builder builder = new Uri.Builder();
         builder.scheme("https");
         builder.authority("jawbone.com");
 
         return builder;
-    }
-
-    /* ---------------------------- Meals API ---------------------------- */
-    public static String getMealsListUrl(int date, int pageToken, int startTime, int endTime, int updatedAfter) {
-        Uri.Builder builder = setBaseParameters();
-
-        String uriString = JAWBONE_API_PREFIX + JAWBONE_API_VERSION + "/users/@me/meals";
-        builder.encodedPath(uriString);
-        if (date != -1)
-            builder.appendQueryParameter("date", String.valueOf(date));
-        if (pageToken != -1)
-            builder.appendQueryParameter("page_token", String.valueOf(pageToken));
-        if (startTime != -1)
-            builder.appendQueryParameter("start_time", String.valueOf(startTime));
-        if (endTime != -1)
-            builder.appendQueryParameter("end_time", String.valueOf(endTime));
-        if (updatedAfter != -1)
-            builder.appendQueryParameter("updated_after", String.valueOf(updatedAfter));
-
-        builder.build();
-        return builder.toString();
-    }
-
-    //https://jawbone.com/nudge/api/v.1.0/meals/gsXiJtiwCAlFrTCm5LeA2A
-    public static String getMealUrl(String xid) {
-        Uri.Builder builder = setBaseParameters();
-
-        String uriString = JAWBONE_API_PREFIX + JAWBONE_API_VERSION + "/meals";
-        builder.encodedPath(uriString);
-        builder.appendPath(xid);
-
-        builder.build();
-        return builder.toString();
     }
 }
