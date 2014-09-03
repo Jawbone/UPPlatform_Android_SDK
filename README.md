@@ -1,8 +1,8 @@
 ![image](https://d3osil7svxrrgt.cloudfront.net/static/www/logos/jawbone/jawbone-logo-lowres.png)
 # UP Platform Android SDK
 ## Overview and Requirements
-The UP Platform Android SDK is released as a library to perform requests to UP Platform API from Android devices. It handles authentication using OAuth 2.0 via a WebView and also provides interfaces to make network requests to the UP platform's REST endpoints. Note that currently not all interfaces are implemented but they will be soon.  
-It is assumed that the SDK users are familiar with Java programming language and Google’s Android SDK. The SDK has been developed on a MacBook Pro running OS X Mavericks and Android Studio 0.8.1 and supports all Android versions from 4.0 onwards. It is also assumed that the user has access to an existing Jawbone UP user account in order to authenticate with the UP platform. New accounts can be created at [jawbone.com/start/signup](http://jawbone.com/start/signup). Note that the user will also need to register at [Jawbone UP Developer Portal](http://jawbone.com/up/developer) and create an app in order to get the **CLIENT_ID** and **CLIENT_SECRET** constant values needed for OAuth authentication.
+The UP Platform Android SDK is released as a library to perform requests to UP Platform API from Android devices. It handles authentication using OAuth 2.0 via Android WebView and also provides interfaces to make network requests to the UP platform's REST endpoints.  
+It is assumed that the SDK users are familiar with Java programming language and Google’s Android SDK. The SDK has been developed on a MacBook Pro running OS X Mavericks and Android Studio 0.8.4 and supports all Android versions from 4.0 onwards. It is also assumed that the user has access to an existing Jawbone UP user account in order to authenticate with the UP platform. New accounts can be created at [jawbone.com/start/signup](http://jawbone.com/start/signup). Note that the user will also need to register at [Jawbone UP Developer Portal](http://jawbone.com/up/developer) and create an app in order to get the **CLIENT_ID** and **CLIENT_SECRET** constant values needed for OAuth authentication.
 
 ## Table of Contents
 
@@ -24,7 +24,7 @@ It is assumed that the SDK users are familiar with Java programming language and
 
 #### Obtain Your OAuth Credentials
 Sign into the [Jawbone UP Developer Portal](http://jawbone.com/up/developer) using your Jawbone UP account. If you do not have an account you can create one by going to [jawbone.com/start/signup](http://jawbone.com/start/signup). Register your organization by pressing "Manage Account". Follow the instructions to create a new app and get your OAuth Client ID and App Secret keys that you will use to authenticate with the UP Platform.  
-Specify your custom redirect URI in the "OAuth Redirect URI" field or use the default value up-platform://redirect. Note that for Android SDK this url is redundant, we will never leave the app and thus won't need to be redirected to it. But the OAuth specification calls for it and this architecture is also used by Jawbone for web based OAuth authentication so we leave it here. Suffice to say whatever non-null uri is entered here should be the same used in app.
+Specify your custom redirect URI in the "OAuth Redirect URI" field or use the default value **up-platform://redirect**. Note that for Android SDK this url is redundant, we will never leave the app and thus won't need to be redirected to it. But the OAuth specification calls for it. Also, this framework is also used by Jawbone for web based OAuth authentication so we leave it here. Suffice to say whatever non-null uri is entered here should be the same used in app.
 
 
 #### Download the Jawbone UP Android SDK
@@ -37,12 +37,12 @@ You can download the latest Android SDK release via the link below or clone it d
 `git clone git@github.com:Jawbone/UPPlatform_Android_SDK`
 
 #### Project Setup and Usage Instructions
-UpPlatformSdk is being distributed as an Android Library project, and thus can be imported in an existing project as a "Module" (we do this in Android Studio by "File" -> "Import Module.." in Android Studio menu). The current project structure as uploaded in Github (seen below) has the SDK already imported and the HelloUp app in Examples folder uses it. 
+UpPlatformSdk is being distributed as an Android Library project, and thus can be imported in an existing project as a "Module" (we do this in Android Studio by **"File" -> "Import Module.."** in Android Studio menu). The current project structure as uploaded in Github (seen below) has the SDK already imported and the HelloUp app in Examples folder uses it. 
 
 ![Project Structure]
 (Documentation/project_structure.png)
 
-UpPlatformSdk is the main library module that provides OAuth authentication, API end points, data model and a Volley based network stack that handles the API calls. The HelloUp project in Examples folder is the test app and has UpPlatformSdk as its library dependency, and provides **CLIENT_ID** and **CLIENT_SECRET** viz. the app specific credentials generated from Jawbone UP Developer Portal. Note that even though this project structure assumes Android Studio as the IDE used, but these instructions can be modified for use in Eclipse IDE too.
+UpPlatformSdk is the main library module that provides OAuth authentication, API end points, data model and a Retrofit based network stack that handles the API calls. The HelloUp project in Examples folder is the test app and has UpPlatformSdk as its library dependency. It  provides **CLIENT_ID** and **CLIENT_SECRET** viz. the app specific credentials generated from Jawbone UP Developer Portal. Note that even though this project structure assumes Android Studio as the IDE used, but these instructions can be modified for use in Eclipse IDE too.
 
 There are two ways to quickly get started with using the SDK:
 * Clone this repo, open the project in Android Studio and then, either modify HelloUp app to suit your needs or just create another project for your app and start using the SDK.
@@ -52,21 +52,24 @@ There are two ways to quickly get started with using the SDK:
 #### Authentication
 The developer obtains the **CLIENT_ID** and **CLIENT_SECRET** from the Developer Portal, sets them up in his app as constants (in this case in HelloUp app).   
 ``` Java
-private static final String CLIENT_ID = "CCVLFloNu8c";  
-private static final String CLIENT_SECRET = "e239462834aa6fc899f84a754f855f56";
+private static final String CLIENT_ID = "<insert-client-id>";  
+private static final String CLIENT_SECRET = "<insert-client-secret>";
 ```
 
-We then define the permissions needed and then pass them to __UpApiWrapper__ which is a singleton class setup to handle all authentication and API requests.  
+We then define the permissions needed in our test app activity (__HelloUpActivity.getIntentForWebView()__ in this instance) and then pass them to __UpPlatformSdkUtils__ that generates the url for OAuth permisssions request Web View (as displayed by __OauthWebViewActivity__).
 ``` Java
-upApiWrapper.setUserCredentials(CLIENT_ID, CLIENT_SECRET, OAUTH_CALLBACK_URL, authScope);
+    private Intent getIntentForWebView() {
+        Uri.Builder builder = UpPlatformSdkUtils.setOauthParameters(CLIENT_ID, OAUTH_CALLBACK_URL, authScope);
+
+        Intent intent = new Intent(OauthWebViewActivity.class.getName());
+        intent.putExtra(UpPlatformSdkUtils.AUTH_URI, builder.build());
+        return intent;
+    }
 ```
 
 We then call get the webview intent and launch the OAuth flow.  
-``` Java
-Intent intent = upApiWrapper.getIntentForWebView();  
-startActivityForResult(intent, UpPlatformSdkUtils.JAWBONE_AUTHORIZE_REQUEST_CODE);  
-```
-The user will sign in with his username/password with his UP user credentials as displayed in the Webview. When the user agrees with the permissions requested and hits okay button the response from server will contain a “code”. This is parsed out and another network call is made whose response will contain the accessToken and refreshToken, which __HelloUpActivity__ saves to shared preferences for easy access. Thus the app now has the accessToken needed to make api requests.
+
+The user will sign in with his username/password with his UP user credentials. When the user agrees with the permissions requested and hits okay button the response from server will contain a “code”. This is parsed out and another network call is made whose response will contain the accessToken and refreshToken, which __HelloUpActivity__ saves to shared preferences for easy access. Thus the app now has the accessToken needed to make api requests.
 
 ``` Java
 public void onResponse(OauthAccessTokenResponse response, int statusCode, VolleyError error) {  
@@ -85,16 +88,24 @@ public void onResponse(OauthAccessTokenResponse response, int statusCode, Volley
 ```
 
 Now there are a few ways to create API requests. You can use either
-the provided objects that encapsulate most of the available endpoints, or you can create custom requests. The API objects are the simplest way to create requests to the REST platform. They take care of creating requests objects, handling responses parsed out from JSON.
+the provided objects that encapsulate all of the available endpoints, or you can create own network stack. The API objects are the simplest way to create requests to the REST platform. They take care of creating requests objects, handling responses parsed out from JSON. The UP Platform SDK provides an simple mechanism to make an API request, it is of the following form:
 
+``` Java
+    ApiManager.getRestApiInterface().getMealEvent(
+        accessToken, //header parameter
+        "application/json", //header parameter
+        "v.1.1", //api version
+        "wZ3pxuSAHA9mnOxjz3yw5w", //hardcoded value, should be dynamic
+        mealEventCallback); //Retrofit callback handler
+```
 
+Currently all api endpoints are defined in __RestApiInterface__, the output of the calls being logged to console. The data model to absorb the JSON returned will be added later.
 
 ## Additional Resources
 You can find additional Jawbone UP Platform documentation [here](http://jawbone.com/start/signup)  
 We use 3 different open source libraries in this SDK, they are:  
-* [Google Volley](https://android.googlesource.com/platform/frameworks/volley/) - to provide basic networking capabilities for API requests. It is included in this repo as a jar file.  
-* [Jackson Parser](http://jackson.codehaus.org/) – to handle incoming and outgoing JSON objects.  
-* [Volley-Jackson-Extension](https://github.com/spothero/volley-jackson-extension) – to integrate JSON objects handling with Volley.  
+* [Retrofit](http://square.github.io/retrofit/) - to provide basic networking capabilities for API requests. It is included in this repo as a jar file.  
+* [Jackson Parser](http://jackson.codehaus.org/) – to handle incoming and outgoing JSON objects.
 
 
 ## Terms of Service
