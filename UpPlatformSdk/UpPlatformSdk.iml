@@ -64,15 +64,9 @@
     <orderEntry type="jdk" jdkName="Android API 19 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="okhttp-urlconnection-2.0.0" level="project" />
-    <orderEntry type="library" exported="" name="jackson-core-2.2.3" level="project" />
     <orderEntry type="library" exported="" name="retrofit-1.6.1" level="project" />
-    <orderEntry type="library" exported="" name="httpmime-4.3.3" level="project" />
-    <orderEntry type="library" exported="" name="jackson-databind-2.2.3" level="project" />
-    <orderEntry type="library" exported="" name="httpcore-4.3.2" level="project" />
-    <orderEntry type="library" exported="" name="jackson-annotations-2.2.3" level="project" />
     <orderEntry type="library" exported="" name="okio-1.0.1" level="project" />
     <orderEntry type="library" exported="" name="okhttp-2.0.0" level="project" />
-    <orderEntry type="library" exported="" name="volley" level="project" />
     <orderEntry type="library" exported="" name="gson-2.3" level="project" />
   </component>
 </module>

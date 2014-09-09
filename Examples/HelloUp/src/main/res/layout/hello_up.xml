@@ -25,20 +25,6 @@
         android:layout_marginRight="60dp"
         android:background="@drawable/jawbone_button" />
 
-    <TextView
-        android:id="@+id/authorizeText2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingLeft="32dp"
-        android:paddingRight="32dp"
-        android:layout_marginTop="45dp"
-        android:layout_marginBottom="15dp"
-        android:text="@string/press_button_to_list_of_meals"
-        android:textColor="#222"
-        android:textSize="22sp"
-        android:visibility="gone"/>
-
     <Button
         android:id="@+id/authorizeButton2"
         android:layout_width="match_parent"

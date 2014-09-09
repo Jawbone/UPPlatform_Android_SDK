@@ -1,5 +1,5 @@
 /**
- * @author Omer Muhammed on 03/16/2014.
+ * @author Omer Muhammed
  * Copyright 2014 (c) Jawbone. All rights reserved.
  *
  */

@@ -12,7 +12,7 @@ It is assumed that the SDK users are familiar with Java programming language and
   - [Project Setup and Usage Instructions](#project-setup-and-usage-instructions)
 - [Documentation](#documentation)
   - [Authentication](#authentication)
-  - [TBD](#TBD)
+  - [API End Points](#api-end-points)
 - [Additional Resources](#additional-resources)
 - [Terms of Service](#terms-of-service)
 - [API Status](#api-status)
@@ -72,40 +72,66 @@ We then call get the webview intent and launch the OAuth flow.
 The user will sign in with his username/password with his UP user credentials. When the user agrees with the permissions requested and hits okay button the response from server will contain a “code”. This is parsed out and another network call is made whose response will contain the accessToken and refreshToken, which __HelloUpActivity__ saves to shared preferences for easy access. Thus the app now has the accessToken needed to make api requests.
 
 ``` Java
-public void onResponse(OauthAccessTokenResponse response, int statusCode, VolleyError error) {  
-    if (response != null) {  
-        mAccessTokenFromServer = response.accessToken;  
-        mRefreshToken = response.refreshToken;  
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(HelloUpActivity.this);  
-        SharedPreferences.Editor editor = preferences.edit();  
-        editor.putString(UP_PLATFORM_ACCESS_TOKEN,mAccessTokenFromServer);  
-        editor.putString(UP_PLATFORM_REFRESH_TOKEN,mRefreshToken);  
-        editor.commit();  
-        Intent intent = new Intent(HelloUpActivity.this, UpApiListActivity.class);  
-        startActivity(intent);  
-    }  
-}
+    private Callback accessTokenRequestListener = new Callback<OauthAccessTokenResponse>() {
+        @Override
+        public void success(OauthAccessTokenResponse result, Response response) {
+
+            if (result.access_token != null) {
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(HelloUpActivity.this);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString(UpPlatformSdkConstants.UP_PLATFORM_ACCESS_TOKEN, result.access_token);
+                editor.putString(UpPlatformSdkConstants.UP_PLATFORM_REFRESH_TOKEN, result.refresh_token);
+                editor.commit();
+
+                Intent intent = new Intent(HelloUpActivity.this, UpApiListActivity.class);
+                intent.putExtra(UpPlatformSdkConstants.CLIENT_SECRET, CLIENT_SECRET);
+                startActivity(intent);
+
+                Log.e(TAG, "accessToken:" + result.access_token);
+            } else {
+                Log.e(TAG, "accessToken not returned by Oauth call, exiting...");
+            }
+        }
+
+        @Override
+        public void failure(RetrofitError retrofitError) {
+            Log.e(TAG, "failed to get accessToken:" + retrofitError.getMessage());
+        }
+    };
 ```
 
-Now there are a few ways to create API requests. You can use either
-the provided objects that encapsulate all of the available endpoints, or you can create own network stack. The API objects are the simplest way to create requests to the REST platform. They take care of creating requests objects, handling responses parsed out from JSON. The UP Platform SDK provides an simple mechanism to make an API request, it is of the following form:
+#### API End Points
+Now there are a few ways to create API requests. You can either use the Retrofit end points provided, or you can create own network stack. The Retrofit API end points provided are the simplest way to create requests to the UP platform. They take care of creating requests objects, handling responses parsed out from JSON. The UP Platform SDK provides an simple mechanism to make an API request, it is of the following form:
 
 ``` Java
     ApiManager.getRestApiInterface().getMealEvent(
-        accessToken, //header parameter
-        "application/json", //header parameter
-        "v.1.1", //api version
-        "wZ3pxuSAHA9mnOxjz3yw5w", //hardcoded value, should be dynamic
-        mealEventCallback); //Retrofit callback handler
+        UpPlatformSdkConstants.API_VERSION_STRING,
+        "JtN269m6S_xmX72fwD63cg", //hardcoded value, should be dynamic
+        genericCallbackListener); //Retrofit callback handler
 ```
 
 Currently all api endpoints are defined in __RestApiInterface__, the output of the calls being logged to console. The data model to absorb the JSON returned will be added later.
 
+The following UP Platform End points are supported in this SDK:
+1. Meals
+2. Moves
+3. Custom
+4. Workouts
+5. Sleep
+6. Body
+7. Goals
+8. Moods
+9. Refresh Token
+10. Settings
+11. Time Zone
+12. Trends
+13. User
+
 ## Additional Resources
 You can find additional Jawbone UP Platform documentation [here](http://jawbone.com/start/signup)  
-We use 3 different open source libraries in this SDK, they are:  
-* [Retrofit](http://square.github.io/retrofit/) - to provide basic networking capabilities for API requests. It is included in this repo as a jar file.  
-* [Jackson Parser](http://jackson.codehaus.org/) – to handle incoming and outgoing JSON objects.
+We use 2 different open source libraries in this SDK, they are:  
+* [Retrofit](http://square.github.io/retrofit/) - to provide basic networking capabilities for API requests. It is included in this repo as a jar file.  The version used also depends on OkHttp and okio hence are also added
+* [Gson Parser](https://code.google.com/p/google-gson/) – to handle incoming and outgoing JSON objects.
 
 
 ## Terms of Service
@@ -127,13 +153,13 @@ Follow us on Twitter [@JawboneDev](https://twitter.com/jawbonedev) to get the la
 Contact the developer support team by sending an email to apisupport@jawbone.com.
 
 ## TODO
-* Complete all API calls  
 * Add Javadocs
 * Add Unit tests
 * Setup the SDK as an AAR file
 
 ## Credits
-*Omer Muhammed* – Principal Software Engineer
+**Omer Muhammed** - Principal Software Engineer,
+Jawbone
 
 ## License
 Usage is provided under the Apache License (v2.0). The licenses for the open source libraries used are different.

@@ -1,5 +1,5 @@
 /**
- * @author Omer Muhammed on 03/01/2014.
+ * @author Omer Muhammed
  * Copyright 2014 (c) Jawbone. All rights reserved.
  *
  */
@@ -16,10 +16,11 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.jawbone.upplatformsdk.R;
-import com.jawbone.upplatformsdk.utils.UpPlatformSdkUtils;
+import com.jawbone.upplatformsdk.utils.UpPlatformSdkConstants;
 
 /**
- * Simple Webview for Oauth authorization
+ * Simple Web View for Oauth authorization, we display the web page so that
+ * user can agree to, or cancel the permissions requested
  */
 public class OauthWebViewActivity extends Activity {
 
@@ -36,7 +37,7 @@ public class OauthWebViewActivity extends Activity {
         setContentView(R.layout.oauth_webview);
 
         Intent intent = this.getIntent();
-        Uri uri = intent.getParcelableExtra(UpPlatformSdkUtils.AUTH_URI);
+        Uri uri = intent.getParcelableExtra(UpPlatformSdkConstants.AUTH_URI);
 
         WebView webview = (WebView) findViewById(R.id.webview);
         webview.getSettings().setJavaScriptEnabled(true);
@@ -57,7 +58,7 @@ public class OauthWebViewActivity extends Activity {
 
                     view.clearCache(true);
                     Intent i = getIntent();
-                    i.putExtra(UpPlatformSdkUtils.ACCESS_CODE, accessCode);
+                    i.putExtra(UpPlatformSdkConstants.ACCESS_CODE, accessCode);
                     setResult(RESULT_OK, i);
                     finish();
                 }

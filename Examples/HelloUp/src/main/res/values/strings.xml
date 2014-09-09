@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Hello Up</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="app_name">Hello UP</string>
     <string name="press_button_to_connect">Press button to connect</string>
-    <string name="press_button_to_list_of_meals">Press Button to get Meals Data</string>
-    <string name="title_activity_up_api_list">UpApiListActivity</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_up_api_call_result">UpApiCallResultActivity</string>
 
 </resources>

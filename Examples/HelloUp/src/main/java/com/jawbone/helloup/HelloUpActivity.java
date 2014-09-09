@@ -1,5 +1,5 @@
 /**
- * @author Omer Muhammed on 03/01/2014.
+ * @author Omer Muhammed
  * Copyright 2014 (c) Jawbone. All rights reserved.
  *
  */
@@ -19,8 +19,9 @@ import android.widget.Button;
 
 import com.jawbone.upplatformsdk.api.ApiManager;
 import com.jawbone.upplatformsdk.api.response.OauthAccessTokenResponse;
+import com.jawbone.upplatformsdk.oauth.OauthUtils;
 import com.jawbone.upplatformsdk.oauth.OauthWebViewActivity;
-import com.jawbone.upplatformsdk.utils.UpPlatformSdkUtils;
+import com.jawbone.upplatformsdk.utils.UpPlatformSdkConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,24 +30,23 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+/**
+ * Main activity of the Hello Up test app, it makes the OAuth API
+ * call and obtains the access token.
+ */
 public class HelloUpActivity extends Activity {
 
     private static final String TAG = HelloUpActivity.class.getSimpleName();
 
-    public static final String UP_PLATFORM_ACCESS_TOKEN = "access_token";
-    public static final String UP_PLATFORM_REFRESH_TOKEN = "refresh_token";
-
     // These are obtained after registering on Jawbone Developer Portal
-    private static final String CLIENT_ID = "CCVLFloNu8c";
-    private static final String CLIENT_SECRET = "e239462834aa6fc899f84a754f855f56";
-//    private static final String CLIENT_ID = "<insert-client-id>";
-//    private static final String CLIENT_SECRET = "<insert-client-secret>";
+    // Credentials used here are created for "Test-App1"
+    private static final String CLIENT_ID = "_W1Vw3ksfpQ";
+    private static final String CLIENT_SECRET = "ed46a27e5d3441317607bac4ea99de9617790637";
 
-    // This has to be identical to the callback url setup in Jawbone Developer Portal
+    // This has to be identical to the OAuth redirect url setup in Jawbone Developer Portal
     private static final String OAUTH_CALLBACK_URL = "http://localhost/helloup?";
-//    private static final String OAUTH_CALLBACK_URL = "<insert-callback-url>";
 
-    private List<UpPlatformSdkUtils.UpPlatformAuthScope> authScope;
+    private List<UpPlatformSdkConstants.UpPlatformAuthScope> authScope;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,26 +55,30 @@ public class HelloUpActivity extends Activity {
 
         setContentView(R.layout.hello_up);
 
-        // Set required levels of permissions here
-        authScope  = new ArrayList<UpPlatformSdkUtils.UpPlatformAuthScope>();
-        authScope.add(UpPlatformSdkUtils.UpPlatformAuthScope.ALL);
+        // Set required levels of permissions here, for demonstration purpose
+        // we are requesting all permissions
+        authScope  = new ArrayList<UpPlatformSdkConstants.UpPlatformAuthScope>();
+        authScope.add(UpPlatformSdkConstants.UpPlatformAuthScope.ALL);
 
         Button oAuthAuthorizeButton = (Button) findViewById(R.id.authorizeButton);
         oAuthAuthorizeButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
             Intent intent = getIntentForWebView();
-            startActivityForResult(intent, UpPlatformSdkUtils.JAWBONE_AUTHORIZE_REQUEST_CODE);
+            startActivityForResult(intent, UpPlatformSdkConstants.JAWBONE_AUTHORIZE_REQUEST_CODE);
             }
         });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == UpPlatformSdkUtils.JAWBONE_AUTHORIZE_REQUEST_CODE && resultCode == RESULT_OK) {
+        if (requestCode == UpPlatformSdkConstants.JAWBONE_AUTHORIZE_REQUEST_CODE && resultCode == RESULT_OK) {
 
-            String code = data.getStringExtra(UpPlatformSdkUtils.ACCESS_CODE);
+            String code = data.getStringExtra(UpPlatformSdkConstants.ACCESS_CODE);
             if (code != null) {
+                //first clear older accessToken, if it exists..
+                ApiManager.getRequestInterceptor().clearAccessToken();
+
                 ApiManager.getRestApiInterface().getAccessToken(
                     CLIENT_ID,
                     CLIENT_SECRET,
@@ -88,16 +92,21 @@ public class HelloUpActivity extends Activity {
         @Override
         public void success(OauthAccessTokenResponse result, Response response) {
 
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(HelloUpActivity.this);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putString(UP_PLATFORM_ACCESS_TOKEN, result.access_token);
-            editor.putString(UP_PLATFORM_REFRESH_TOKEN, result.refresh_token);
-            editor.commit();
+            if (result.access_token != null) {
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(HelloUpActivity.this);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString(UpPlatformSdkConstants.UP_PLATFORM_ACCESS_TOKEN, result.access_token);
+                editor.putString(UpPlatformSdkConstants.UP_PLATFORM_REFRESH_TOKEN, result.refresh_token);
+                editor.commit();
 
-            Intent intent = new Intent(HelloUpActivity.this, UpApiListActivity.class);
-            startActivity(intent);
+                Intent intent = new Intent(HelloUpActivity.this, UpApiListActivity.class);
+                intent.putExtra(UpPlatformSdkConstants.CLIENT_SECRET, CLIENT_SECRET);
+                startActivity(intent);
 
-            Log.e(TAG, "accessToken:" + result.access_token);
+                Log.e(TAG, "accessToken:" + result.access_token);
+            } else {
+                Log.e(TAG, "accessToken not returned by Oauth call, exiting...");
+            }
         }
 
         @Override
@@ -107,11 +116,10 @@ public class HelloUpActivity extends Activity {
     };
 
     private Intent getIntentForWebView() {
-        Uri.Builder builder = UpPlatformSdkUtils.setOauthParameters(CLIENT_ID, OAUTH_CALLBACK_URL, authScope);
+        Uri.Builder builder = OauthUtils.setOauthParameters(CLIENT_ID, OAUTH_CALLBACK_URL, authScope);
 
         Intent intent = new Intent(OauthWebViewActivity.class.getName());
-        intent.putExtra(UpPlatformSdkUtils.AUTH_URI, builder.build());
+        intent.putExtra(UpPlatformSdkConstants.AUTH_URI, builder.build());
         return intent;
     }
-
 }

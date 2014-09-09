@@ -6,7 +6,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/jawbone_appicon"
         android:label="@string/app_name">
 
         <activity
@@ -35,8 +35,7 @@
                 <action android:name="com.jawbone.helloup.UpApiListActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
         </activity>
-    </application>
 
+    </application>
 </manifest>

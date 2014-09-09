@@ -1,58 +1,27 @@
 /**
- * @author Omer Muhammed on 03/01/2014.
+ * @author Omer Muhammed
  * Copyright 2014 (c) Jawbone. All rights reserved.
  *
  */
-package com.jawbone.upplatformsdk.utils;
+package com.jawbone.upplatformsdk.oauth;
 
 import android.net.Uri;
 import android.util.Log;
 
+import com.jawbone.upplatformsdk.utils.UpPlatformSdkConstants;
+
 import java.util.List;
 
 /**
- * A small utility class for handy methods for SDK.
+ * This class provide the API end point to make the OAuth Web View request.
+ * Note that it does not use Retrofit library.
  */
-public class UpPlatformSdkUtils {
+public class OauthUtils {
 
-    private static final String TAG = UpPlatformSdkUtils.class.getSimpleName();
+    private static final String TAG = OauthUtils.class.getSimpleName();
 
-    private static final String JAWBONE_API_PREFIX = "nudge/api/";
-    public static final String JAWBONE_API_VERSION = "v.1.1";
-
-    public static final int JAWBONE_AUTHORIZE_REQUEST_CODE = 120501;
-
-    public static final String AUTH_URI = "auth_uri";
-
-    public static final String ACCESS_CODE = "code";
-
-    /**
-     * Different types of permissions that can be requested, defined as an enum
-     */
-    public enum UpPlatformAuthScope {
-        BASIC_READ,
-        EXTENDED_READ,
-        LOCATION_READ,
-        FRIENDS_READ,
-        MOOD_READ,
-        MOOD_WRITE,
-        MOVE_READ,
-        MOVE_WRITE,
-        SLEEP_READ,
-        SLEEP_WRITE,
-        MEAL_READ,
-        MEAL_WRITE,
-        WEIGHT_READ,
-        WEIGHT_WRITE,
-        CARDIAC_READ,
-        CARDIAC_WRITE,
-        GENERIC_EVENT_READ,
-        GENERIC_EVENT_WRITE,
-        ALL;
-    }
-
-    public static Uri.Builder setOauthParameters(String clientId, String callbackUrl, List<UpPlatformAuthScope> scope) {
-        Uri.Builder builder = UpPlatformSdkUtils.setBaseParameters();
+    public static Uri.Builder setOauthParameters(String clientId, String callbackUrl, List<UpPlatformSdkConstants.UpPlatformAuthScope> scope) {
+        Uri.Builder builder = setBaseParameters();
 
         builder.appendPath("auth");
         builder.appendPath("oauth2");
@@ -65,10 +34,10 @@ public class UpPlatformSdkUtils {
         return builder;
     }
 
-    public static Uri.Builder setOauthScopeParameters(List<UpPlatformAuthScope> scopeArrayList, Uri.Builder builder) {
+    public static Uri.Builder setOauthScopeParameters(List<UpPlatformSdkConstants.UpPlatformAuthScope> scopeArrayList, Uri.Builder builder) {
         StringBuilder scopeValues = new StringBuilder();
 
-        for (UpPlatformAuthScope scope : scopeArrayList) {
+        for (UpPlatformSdkConstants.UpPlatformAuthScope scope : scopeArrayList) {
             switch (scope) {
                 case BASIC_READ:
                     scopeValues.append("basic_read ");
@@ -162,8 +131,8 @@ public class UpPlatformSdkUtils {
 
     public static Uri.Builder setBaseParameters() {
         Uri.Builder builder = new Uri.Builder();
-        builder.scheme("https");
-        builder.authority("jawbone.com");
+        builder.scheme(UpPlatformSdkConstants.URI_SCHEME);
+        builder.authority(UpPlatformSdkConstants.AUTHORITY);
 
         return builder;
     }
