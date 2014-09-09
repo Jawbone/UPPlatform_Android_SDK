@@ -113,19 +113,20 @@ Now there are a few ways to create API requests. You can either use the Retrofit
 Currently all api endpoints are defined in __RestApiInterface__, the output of the calls being logged to console. The data model to absorb the JSON returned will be added later.
 
 The following UP Platform End points are supported in this SDK:
-1. Meals
-2. Moves
-3. Custom
-4. Workouts
-5. Sleep
-6. Body
-7. Goals
-8. Moods
-9. Refresh Token
-10. Settings
-11. Time Zone
-12. Trends
-13. User
+
+- [Meals](https://jawbone.com/up/developer/endpoints/meals)
+- [Moves](https://jawbone.com/up/developer/endpoints/moves)
+- [Custom](https://jawbone.com/up/developer/endpoints/generic_events)
+- [Workouts](https://jawbone.com/up/developer/endpoints/workouts)
+- [Sleep](https://jawbone.com/up/developer/endpoints/sleep)
+- [Body](https://jawbone.com/up/developer/endpoints/body)
+- [Goals](https://jawbone.com/up/developer/endpoints/goals)
+- [Moods](https://jawbone.com/up/developer/endpoints/mood)
+- [Refresh Token](https://jawbone.com/up/developer/endpoints/refreshToken)
+- [Settings](https://jawbone.com/up/developer/endpoints/settings)
+- [Time Zone](https://jawbone.com/up/developer/endpoints/timezone)
+- [Trends](https://jawbone.com/up/developer/endpoints/trends)
+- [User](https://jawbone.com/up/developer/endpoints/user)
 
 ## Additional Resources
 You can find additional Jawbone UP Platform documentation [here](http://jawbone.com/start/signup)  
