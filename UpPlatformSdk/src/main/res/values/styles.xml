@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <!-- Base application theme. -->
+    <style name="FrameworkRoot.Theme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+
+    </style>
+
+    <style name="Theme" parent="FrameworkRoot.Theme">
+
+    </style>
+
+    <style name="Theme.Jawbone.Base" parent="Theme">
+        <item name="colorPrimary">@color/jawbonePrimaryColor</item>
+        <item name="colorPrimaryDark">@color/jawbonePrimaryDarkColor</item>
+        <item name="colorAccent">@color/jawboneAccentColor</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="drawerArrowStyle">@style/Theme.Jawbone.Base.DrawerArrowStyle</item>
+    </style>
+
+    <style name="Theme.Jawbone.Base.DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@android:color/white</item>
+    </style>
+
+    <style name="Theme.Jawbone" parent="Theme.Jawbone.Base" />
+
+    <style name="Theme.Jawbone.Base.HeaderBar">
+        <item name="android:background">@color/jawbonePrimaryColor</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="Theme.Jawbone.Base.ActionBarThemeOverlay" parent="">
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="actionMenuTextColor">@android:color/white</item>
+        <item name="colorControlNormal">#fff</item>
+        <item name="colorControlHighlight">#3fff</item>
+    </style>
+
+    <style name="TextAppearance.Jawbone.FloatLabel" parent="android:TextAppearance.Small">
+        <item name="android:textColor">@color/jawbonePrimaryColor</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+</resources>

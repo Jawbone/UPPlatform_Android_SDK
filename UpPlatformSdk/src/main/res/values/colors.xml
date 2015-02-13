@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="jawbonePrimaryColor">#212121</color>
+    <color name="jawbonePrimaryDarkColor">#111111</color>
+    <color name="jawboneAccentColor">#536DFE</color>
+
+
+</resources>
