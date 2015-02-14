@@ -82,13 +82,13 @@ public class HourlyEvent  {
 
     @Override
     public String toString() {
-        return "HourlyEvent{" +
-                "distance=" + distance +
-                ", calories=" + calories +
-                ", steps=" + steps +
-                ", inactiveTime=" + inactiveTime +
-                ", longestActiveTime=" + longestActiveTime +
-                ", longestIdleTime=" + longestIdleTime +
-                '}';
+        return "HourlyEvent {" + "\n" +
+                "\n\tdistance=" + distance +
+                ",\n\tcalories=" + calories +
+                ",\n\tsteps=" + steps +
+                ",\n\tinactiveTime=" + inactiveTime +
+                ",\n\tlongestActiveTime=" + longestActiveTime +
+                ",\n\tlongestIdleTime=" + longestIdleTime +
+                "\n}\n";
     }
 }

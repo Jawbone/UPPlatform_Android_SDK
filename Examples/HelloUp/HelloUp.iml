@@ -91,8 +91,12 @@
     <orderEntry type="library" exported="" name="support-annotations-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="okio-1.2.0" level="project" />
     <orderEntry type="library" exported="" name="support-v4-21.0.3" level="project" />
+    <orderEntry type="library" exported="" name="materialish-progress-1.4" level="project" />
     <orderEntry type="library" exported="" name="retrofit-1.8.0" level="project" />
     <orderEntry type="library" exported="" name="okhttp-2.0.0" level="project" />
+    <orderEntry type="library" exported="" name="cardview-v7-21.0.3" level="project" />
+    <orderEntry type="library" exported="" name="recyclerview-v7-21.0.3" level="project" />
+    <orderEntry type="library" exported="" name="butterknife-6.1.0" level="project" />
     <orderEntry type="module" module-name="UpPlatformSdk" exported="" />
   </component>
 </module>

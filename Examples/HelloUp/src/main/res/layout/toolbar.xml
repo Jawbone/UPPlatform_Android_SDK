@@ -1,0 +1,9 @@
+<android.support.v7.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar"
+    style="@style/Theme.Jawbone.Base.HeaderBar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+    app:theme="@style/Theme.Jawbone.Base.ActionBarThemeOverlay" />

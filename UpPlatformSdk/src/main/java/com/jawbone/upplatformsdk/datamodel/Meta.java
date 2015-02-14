@@ -90,13 +90,13 @@ public class Meta {
     @Override
     public String toString() {
         return "Meta{" +
-                "code=" + code +
-                ", message='" + message + '\'' +
-                ", userXid='" + userXid + '\'' +
-                ", time=" + time +
-                ", errorType='" + errorType + '\'' +
-                ", errorDetail='" + errorDetail + '\'' +
-                ", errorUserMsg='" + errorUserMsg + '\'' +
-                '}';
+                "\n\tcode=" + code +
+                ",\n\tmessage='" + message + '\'' +
+                ",\n\tuserXid='" + userXid + '\'' +
+                ",\n\ttime=" + time +
+                ",\n\terrorType='" + errorType + '\'' +
+                ",\n\terrorDetail='" + errorDetail + '\'' +
+                ",\n\terrorUserMsg='" + errorUserMsg + '\'' +
+                "\n}\n";
     }
 }

@@ -53,9 +53,9 @@ public class MoveData {
     @Override
     public String toString() {
         return "MoveData{" +
-                "moveItems=" + moveItems +
-                ", links=" + links +
-                ", size=" + size +
-                '}';
+                "\n\tmoveItems=" + moveItems +
+                ",\n\tlinks=" + links +
+                ",\n\tsize=" + size +
+                "\n}\n";
     }
 }

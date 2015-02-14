@@ -27,8 +27,8 @@ public class Link {
 
     @Override
     public String toString() {
-        return "Link{" +
-                "next='" + next + '\'' +
-                '}';
+        return "Link {" +
+                "\n\tnext='" + next + '\'' +
+                "\n}\n";
     }
 }

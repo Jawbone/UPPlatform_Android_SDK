@@ -17,6 +17,7 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 
+import com.jawbone.helloup.utils.ApiConstants;
 import com.jawbone.upplatformsdk.api.ApiManager;
 import com.jawbone.upplatformsdk.api.response.OauthAccessTokenResponse;
 import com.jawbone.upplatformsdk.oauth.OauthUtils;
@@ -40,8 +41,7 @@ public class HelloUpActivity extends Activity {
 
     // These are obtained after registering on Jawbone Developer Portal
     // Credentials used here are created for "Test-App1"
-    private static final String CLIENT_ID = "_W1Vw3ksfpQ";
-    private static final String CLIENT_SECRET = "ed46a27e5d3441317607bac4ea99de9617790637";
+
 
     // This has to be identical to the OAuth redirect url setup in Jawbone Developer Portal
     private static final String OAUTH_CALLBACK_URL = "http://localhost/helloup?";
@@ -80,8 +80,8 @@ public class HelloUpActivity extends Activity {
                 ApiManager.getRequestInterceptor().clearAccessToken();
 
                 ApiManager.getRestApiInterface().getAccessToken(
-                    CLIENT_ID,
-                    CLIENT_SECRET,
+                    ApiConstants.CLIENT_ID,
+                    ApiConstants.CLIENT_SECRET,
                     code,
                     accessTokenRequestListener);
             }
@@ -100,7 +100,6 @@ public class HelloUpActivity extends Activity {
                 editor.commit();
 
                 Intent intent = new Intent(HelloUpActivity.this, UpApiListActivity.class);
-                intent.putExtra(UpPlatformSdkConstants.CLIENT_SECRET, CLIENT_SECRET);
                 startActivity(intent);
 
                 Log.e(TAG, "accessToken:" + result.access_token);
@@ -116,7 +115,7 @@ public class HelloUpActivity extends Activity {
     };
 
     private Intent getIntentForWebView() {
-        Uri.Builder builder = OauthUtils.setOauthParameters(CLIENT_ID, OAUTH_CALLBACK_URL, authScope);
+        Uri.Builder builder = OauthUtils.setOauthParameters(ApiConstants.CLIENT_ID, OAUTH_CALLBACK_URL, authScope);
 
         Intent intent = new Intent(OauthWebViewActivity.class.getName());
         intent.putExtra(UpPlatformSdkConstants.AUTH_URI, builder.build());

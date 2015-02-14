@@ -102,17 +102,18 @@ public class MoveItem {
         this.details = details;
     }
 
+
     @Override
     public String toString() {
-        return "MoveItem{" +
-                "xid='" + xid + '\'' +
-                ", title='" + title + '\'' +
-                ", type='" + type + '\'' +
-                ", timeCreated=" + timeCreated +
-                ", timeCompleted=" + timeCompleted +
-                ", date=" + date +
-                ", snapshotImage='" + snapshotImage + '\'' +
-                ", details=" + details +
-                '}';
+        return "MoveItem {" + "\n" +
+                "\t\nxid='" + xid + '\'' +
+                ",\n\title='" + title + '\'' +
+                ",\n\ttype='" + type + '\'' +
+                ",\n\ttimeCreated=" + timeCreated +
+                ",\n\ttimeCompleted=" + timeCompleted +
+                ",\n\tdate=" + date +
+                ",\n\tsnapshotImage='" + snapshotImage + '\'' +
+                ",\n\tdetails=" + details +
+                "\n}\n";
     }
 }

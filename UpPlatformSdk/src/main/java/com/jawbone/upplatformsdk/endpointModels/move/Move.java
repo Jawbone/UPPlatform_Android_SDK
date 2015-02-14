@@ -39,9 +39,9 @@ public class Move {
 
     @Override
     public String toString() {
-        return "Move{" +
-                "meta=" + meta.toString() +
-                ", moveData=" + moveData +
-                '}';
+        return "Move {" +
+                "\n\tmeta=" + meta.toString() +
+                ",\n\tmoveData=" + moveData +
+                "\n}\n";
     }
 }

@@ -228,26 +228,26 @@ public class MoveDetails {
     @Override
     public String toString() {
         return "MoveDetails{" +
-                "distance=" + distance +
-                ", km='" + km + '\'' +
-                ", steps=" + steps +
-                ", longestActive=" + longestActive +
-                ", inactiveTime=" + inactiveTime +
-                ", longestIdle=" + longestIdle +
-                ", calories=" + calories +
-                ", bmrDay=" + bmrDay +
-                ", bgCalories=" + bgCalories +
-                ", woCalories=" + woCalories +
-                ", woTime=" + woTime +
-                ", woActiveTime=" + woActiveTime +
-                ", woCount=" + woCount +
-                ", woLongest=" + woLongest +
-                ", sunrise=" + sunrise +
-                ", sunset=" + sunset +
-                ", timeZone='" + timeZone + '\'' +
-                ", tzs=" + tzs +
-                ", hourlyTotals=" + hourlyTotals +
-                '}';
+                "\n\tdistance=" + distance +
+                ",\n\t km='" + km + '\'' +
+                ",\n\t steps=" + steps +
+                ",\n\t longestActive=" + longestActive +
+                ",\n\t inactiveTime=" + inactiveTime +
+                ",\n\t longestIdle=" + longestIdle +
+                ",\n\t calories=" + calories +
+                ",\n\t bmrDay=" + bmrDay +
+                ",\n\t bgCalories=" + bgCalories +
+                ",\n\t woCalories=" + woCalories +
+                ",\n\t woTime=" + woTime +
+                ",\n\t woActiveTime=" + woActiveTime +
+                ",\n\t woCount=" + woCount +
+                ",\n\t woLongest=" + woLongest +
+                ",\n\t sunrise=" + sunrise +
+                ",\n\t sunset=" + sunset +
+                ",\n\t timeZone='" + timeZone + '\'' +
+                ",\n\t tzs=" + tzs +
+                ",\n\t hourlyTotals=" + hourlyTotals +
+                "\n}\n";
     }
 }
 

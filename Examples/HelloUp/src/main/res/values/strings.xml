@@ -3,5 +3,12 @@
 
     <string name="app_name">Hello UP</string>
     <string name="press_button_to_connect">Press button to connect</string>
+    <string name="title_activity_detail">DetailActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Api Fragments -->
+    <string name="moves_event_list">Moves Events List</string>
 
 </resources>
