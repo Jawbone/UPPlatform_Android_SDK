@@ -1,6 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+
+    <!-- Base application theme. -->
+    <style name="HelloUp.FrameworkRoot.Theme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+
+    </style>
+
+    <style name="HelloUpTheme" parent="HelloUp.FrameworkRoot.Theme">
+
+    </style>
+
+    <style name="Theme.HelloUp.Base" parent="HelloUpTheme">
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="colorAccent">@color/accentColor</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="drawerArrowStyle">@style/Theme.Jawbone.Base.DrawerArrowStyle</item>
+    </style>
+
+    <style name="Theme.HelloUp.Base.DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@android:color/white</item>
+    </style>
+
+    <style name="Theme.HelloUp" parent="Theme.HelloUp.Base" />
+
+    <style name="Theme.HelloUp.Base.HeaderBar">
+        <item name="android:background">@color/primaryColor</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="Theme.HelloUp.Base.ActionBarThemeOverlay" parent="">
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="actionMenuTextColor">@android:color/white</item>
+        <item name="colorControlNormal">#fff</item>
+        <item name="colorControlHighlight">#3fff</item>
+    </style>
+
+    <style name="TextAppearance.HelloUp.FloatLabel" parent="android:TextAppearance.Small">
+        <item name="android:textColor">@color/primaryColor</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+
+
     <style name="FullscreenTheme" parent="android:Theme.NoTitleBar">
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowBackground">@null</item>

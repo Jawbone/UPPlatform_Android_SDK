@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jawbone.upplatformsdk" >
 
-    <application android:theme="@style/Theme.Jawbone">
+    <application>
     </application>
 
 </manifest>

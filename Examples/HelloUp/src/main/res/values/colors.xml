@@ -3,4 +3,8 @@
     <color name="black_overlay">#66000000</color>
     <color name="white">#FFFFFF</color>
 
+    <color name="primaryColor">#212121</color>
+    <color name="primaryDarkColor">#111111</color>
+    <color name="accentColor">#536DFE</color>
+
 </resources>

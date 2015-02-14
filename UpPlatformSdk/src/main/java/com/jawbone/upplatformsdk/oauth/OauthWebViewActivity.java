@@ -11,7 +11,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Window;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -32,8 +31,6 @@ public class OauthWebViewActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-
         setContentView(R.layout.oauth_webview);
 
         Intent intent = this.getIntent();

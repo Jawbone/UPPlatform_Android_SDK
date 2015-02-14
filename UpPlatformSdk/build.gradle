@@ -31,9 +31,9 @@ dependencies {
     // Network Libraries
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'com.squareup.okio:okio:1.2.0'
-    compile 'com.squareup.okhttp:okhttp-urlconnection:2.2.0'
+    compile 'com.squareup.okhttp:okhttp-urlconnection:2.0.0'
     compile 'com.squareup.retrofit:retrofit:1.8.0'
-    compile 'com.squareup.okhttp:okhttp:2.2.0'
+    compile 'com.squareup.okhttp:okhttp:2.0.0'
 
     // Support Libraries
     compile 'com.android.support:appcompat-v7:21.0.3'
