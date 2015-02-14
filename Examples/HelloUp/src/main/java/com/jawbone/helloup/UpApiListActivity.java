@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jawbone.upplatformsdk.api.ApiManager;
+import com.jawbone.upplatformsdk.endpointModels.move.Move;
 import com.jawbone.upplatformsdk.utils.UpPlatformSdkConstants;
 
 import java.util.HashMap;
@@ -146,7 +147,17 @@ public class UpApiListActivity extends ListActivity {
                         ApiManager.getRestApiInterface().getMoveEventsList(
                             UpPlatformSdkConstants.API_VERSION_STRING,
                             getMoveEventsListRequestParams(),
-                            genericCallbackListener);
+                            new Callback<Move>() {
+                                @Override
+                                public void success(Move o, Response response) {
+                                    Log.d("TESTT", o.toString());
+                                }
+
+                                @Override
+                                public void failure(RetrofitError error) {
+                                    Log.d("ERROR: ", error.getMessage());
+                                }
+                            });
                         break;
                     case GET_MOVES_EVENT:
                         Log.e(TAG, "making Get Move Event api call ...");
@@ -418,6 +429,20 @@ public class UpApiListActivity extends ListActivity {
     //TODO the callbacks are not yet backed by data model, but will get json response,
     //TODO which for now is logged to console
     private Callback genericCallbackListener = new Callback<Object>() {
+        @Override
+        public void success(Object o, Response response) {
+            Log.e(TAG,  "api call successful, json output: " + o.toString());
+            Toast.makeText(getApplicationContext(), o.toString(), Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void failure(RetrofitError retrofitError) {
+            Log.e(TAG,  "api call failed, error message: " + retrofitError.getMessage());
+            Toast.makeText(getApplicationContext(), retrofitError.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    };
+
+    private Callback<Object> testCallback = new Callback<Object>() {
         @Override
         public void success(Object o, Response response) {
             Log.e(TAG,  "api call successful, json output: " + o.toString());

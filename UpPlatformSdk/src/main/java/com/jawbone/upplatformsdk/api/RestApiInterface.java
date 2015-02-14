@@ -6,6 +6,7 @@
 package com.jawbone.upplatformsdk.api;
 
 import com.jawbone.upplatformsdk.api.response.OauthAccessTokenResponse;
+import com.jawbone.upplatformsdk.endpointModels.move.Move;
 import com.jawbone.upplatformsdk.utils.UpPlatformSdkConstants;
 
 import java.util.HashMap;
@@ -86,7 +87,7 @@ public interface RestApiInterface {
     void getMoveEventsList(
         @Path(UpPlatformSdkConstants.API_VERSION) String version,
         @QueryMap HashMap<String, Integer> hashMap,
-        Callback<Object> response
+        Callback<Move> response
     );
 
     @GET("/nudge/api/{version}/moves/{xid}")
