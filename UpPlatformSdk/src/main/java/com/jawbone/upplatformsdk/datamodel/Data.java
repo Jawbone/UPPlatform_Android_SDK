@@ -5,6 +5,8 @@
  */
 package com.jawbone.upplatformsdk.datamodel;
 
+import com.jawbone.upplatformsdk.utils.UpPlatformSdkUtils;
+
 public class Data {
 
     public String xid;
@@ -15,6 +17,11 @@ public class Data {
 
     public void setXid(String xid) {
         this.xid = xid;
+    }
+
+    @Override
+    public String toString() {
+        return UpPlatformSdkUtils.toJson(this);
     }
 }
 

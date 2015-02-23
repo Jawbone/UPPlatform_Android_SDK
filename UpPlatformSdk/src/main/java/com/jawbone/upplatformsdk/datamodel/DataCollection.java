@@ -5,6 +5,8 @@
  */
 package com.jawbone.upplatformsdk.datamodel;
 
+import com.jawbone.upplatformsdk.utils.UpPlatformSdkUtils;
+
 public class DataCollection {
 
     public Links links;
@@ -25,5 +27,10 @@ public class DataCollection {
 
     public void setSize(int size) {
         this.size = size;
+    }
+
+    @Override
+    public String toString() {
+        return UpPlatformSdkUtils.toJson(this);
     }
 }

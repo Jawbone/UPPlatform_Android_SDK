@@ -48,7 +48,7 @@ public class UpPlatformSdkConstants {
         CARDIAC_WRITE,
         GENERIC_EVENT_READ,
         GENERIC_EVENT_WRITE,
-        ALL;
+        ALL
     }
 
     /**

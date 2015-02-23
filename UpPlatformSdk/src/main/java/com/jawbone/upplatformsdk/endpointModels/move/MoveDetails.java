@@ -1,6 +1,7 @@
 package com.jawbone.upplatformsdk.endpointModels.move;
 
 import com.google.gson.annotations.SerializedName;
+import com.jawbone.upplatformsdk.utils.UpPlatformSdkUtils;
 
 import java.util.Map;
 
@@ -14,52 +15,52 @@ import java.util.Map;
 public class MoveDetails {
 
     @SerializedName("distance")
-    int distance;
+    Integer distance;
 
     @SerializedName("km")
     String km;
 
     @SerializedName("steps")
-    int steps;
+    Integer steps;
 
     @SerializedName("longest_active")
-    int longestActive;
+    Integer longestActive;
 
     @SerializedName("inactive_time")
-    int inactiveTime;
+    Integer inactiveTime;
 
     @SerializedName("longest_idle")
-    int longestIdle;
+    Integer longestIdle;
 
     @SerializedName("calories")
-    float calories;
+    Float calories;
 
     @SerializedName("bmr_day")
-    float bmrDay;
+    Float bmrDay;
 
     @SerializedName("bg_calories")
-    float bgCalories;
+    Float bgCalories;
 
     @SerializedName("wo_calories")
-    float woCalories;
+    Float woCalories;
 
     @SerializedName("wo_time")
-    int woTime;
+    Integer woTime;
 
     @SerializedName("wo_active_time")
-    int woActiveTime;
+    Integer woActiveTime;
 
     @SerializedName("wo_count")
-    int woCount;
+    Integer woCount;
 
     @SerializedName("wo_longest")
-    int woLongest;
+    Integer woLongest;
 
     @SerializedName("sunrise")
-    long sunrise;
+    Long sunrise;
 
     @SerializedName("sunset")
-    long sunset;
+    Long sunset;
 
     @SerializedName("tz")
     String timeZone;
@@ -73,11 +74,11 @@ public class MoveDetails {
     public MoveDetails() {
     }
 
-    public int getDistance() {
+    public Integer getDistance() {
         return distance;
     }
 
-    public void setDistance(int distance) {
+    public void setDistance(Integer distance) {
         this.distance = distance;
     }
 
@@ -89,115 +90,115 @@ public class MoveDetails {
         this.km = km;
     }
 
-    public int getSteps() {
+    public Integer getSteps() {
         return steps;
     }
 
-    public void setSteps(int steps) {
+    public void setSteps(Integer steps) {
         this.steps = steps;
     }
 
-    public int getLongestActive() {
+    public Integer getLongestActive() {
         return longestActive;
     }
 
-    public void setLongestActive(int longestActive) {
+    public void setLongestActive(Integer longestActive) {
         this.longestActive = longestActive;
     }
 
-    public int getInactiveTime() {
+    public Integer getInactiveTime() {
         return inactiveTime;
     }
 
-    public void setInactiveTime(int inactiveTime) {
+    public void setInactiveTime(Integer inactiveTime) {
         this.inactiveTime = inactiveTime;
     }
 
-    public int getLongestIdle() {
+    public Integer getLongestIdle() {
         return longestIdle;
     }
 
-    public void setLongestIdle(int longestIdle) {
+    public void setLongestIdle(Integer longestIdle) {
         this.longestIdle = longestIdle;
     }
 
-    public float getCalories() {
+    public Float getCalories() {
         return calories;
     }
 
-    public void setCalories(float calories) {
+    public void setCalories(Float calories) {
         this.calories = calories;
     }
 
-    public float getBmrDay() {
+    public Float getBmrDay() {
         return bmrDay;
     }
 
-    public void setBmrDay(float bmrDay) {
+    public void setBmrDay(Float bmrDay) {
         this.bmrDay = bmrDay;
     }
 
-    public float getBgCalories() {
+    public Float getBgCalories() {
         return bgCalories;
     }
 
-    public void setBgCalories(float bgCalories) {
+    public void setBgCalories(Float bgCalories) {
         this.bgCalories = bgCalories;
     }
 
-    public float getWoCalories() {
+    public Float getWoCalories() {
         return woCalories;
     }
 
-    public void setWoCalories(float woCalories) {
+    public void setWoCalories(Float woCalories) {
         this.woCalories = woCalories;
     }
 
-    public int getWoTime() {
+    public Integer getWoTime() {
         return woTime;
     }
 
-    public void setWoTime(int woTime) {
+    public void setWoTime(Integer woTime) {
         this.woTime = woTime;
     }
 
-    public int getWoActiveTime() {
+    public Integer getWoActiveTime() {
         return woActiveTime;
     }
 
-    public void setWoActiveTime(int woActiveTime) {
+    public void setWoActiveTime(Integer woActiveTime) {
         this.woActiveTime = woActiveTime;
     }
 
-    public int getWoCount() {
+    public Integer getWoCount() {
         return woCount;
     }
 
-    public void setWoCount(int woCount) {
+    public void setWoCount(Integer woCount) {
         this.woCount = woCount;
     }
 
-    public int getWoLongest() {
+    public Integer getWoLongest() {
         return woLongest;
     }
 
-    public void setWoLongest(int woLongest) {
+    public void setWoLongest(Integer woLongest) {
         this.woLongest = woLongest;
     }
 
-    public long getSunrise() {
+    public Long getSunrise() {
         return sunrise;
     }
 
-    public void setSunrise(long sunrise) {
+    public void setSunrise(Long sunrise) {
         this.sunrise = sunrise;
     }
 
-    public long getSunset() {
+    public Long getSunset() {
         return sunset;
     }
 
-    public void setSunset(long sunset) {
+    public void setSunset(Long sunset) {
         this.sunset = sunset;
     }
 
@@ -227,27 +228,7 @@ public class MoveDetails {
 
     @Override
     public String toString() {
-        return "MoveDetails{" +
-                "\n\tdistance=" + distance +
-                ",\n\t km='" + km + '\'' +
-                ",\n\t steps=" + steps +
-                ",\n\t longestActive=" + longestActive +
-                ",\n\t inactiveTime=" + inactiveTime +
-                ",\n\t longestIdle=" + longestIdle +
-                ",\n\t calories=" + calories +
-                ",\n\t bmrDay=" + bmrDay +
-                ",\n\t bgCalories=" + bgCalories +
-                ",\n\t woCalories=" + woCalories +
-                ",\n\t woTime=" + woTime +
-                ",\n\t woActiveTime=" + woActiveTime +
-                ",\n\t woCount=" + woCount +
-                ",\n\t woLongest=" + woLongest +
-                ",\n\t sunrise=" + sunrise +
-                ",\n\t sunset=" + sunset +
-                ",\n\t timeZone='" + timeZone + '\'' +
-                ",\n\t tzs=" + tzs +
-                ",\n\t hourlyTotals=" + hourlyTotals +
-                "\n}\n";
+        return UpPlatformSdkUtils.toJson(this);
     }
 }
 

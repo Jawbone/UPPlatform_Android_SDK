@@ -1,4 +1,4 @@
-package com.jawbone.upplatformsdk.endpointModels.move;
+package com.jawbone.upplatformsdk.endpointModels.body;
 
 import com.google.gson.annotations.SerializedName;
 import com.jawbone.upplatformsdk.endpointModels.EndpointData;
@@ -11,22 +11,22 @@ import java.util.List;
  *
  * @author Marcus Gabilheri
  * @version 1.0
- * @since 2/13/15.
+ * @since 2/14/15.
  */
-public class MoveData extends EndpointData {
+public class BodyData extends EndpointData {
 
     @SerializedName("items")
-    List<MoveItem> moveItems;
+    List<BodyItem> bodyItems;
 
-    public MoveData() {
+    public BodyData() {
     }
 
-    public List<MoveItem> getMoveItems() {
-        return moveItems;
+    public List<BodyItem> getBodyItems() {
+        return bodyItems;
     }
 
-    public void setMoveItems(List<MoveItem> moveItems) {
-        this.moveItems = moveItems;
+    public void setBodyItems(List<BodyItem> bodyItems) {
+        this.bodyItems = bodyItems;
     }
 
     @Override

@@ -7,6 +7,7 @@
  */
 package com.jawbone.upplatformsdk.datamodel;
 import com.google.gson.annotations.SerializedName;
+import com.jawbone.upplatformsdk.utils.UpPlatformSdkUtils;
 
 public class Meta {
 
@@ -89,14 +90,6 @@ public class Meta {
 
     @Override
     public String toString() {
-        return "Meta{" +
-                "\n\tcode=" + code +
-                ",\n\tmessage='" + message + '\'' +
-                ",\n\tuserXid='" + userXid + '\'' +
-                ",\n\ttime=" + time +
-                ",\n\terrorType='" + errorType + '\'' +
-                ",\n\terrorDetail='" + errorDetail + '\'' +
-                ",\n\terrorUserMsg='" + errorUserMsg + '\'' +
-                "\n}\n";
+        return UpPlatformSdkUtils.toJson(this);
     }
 }

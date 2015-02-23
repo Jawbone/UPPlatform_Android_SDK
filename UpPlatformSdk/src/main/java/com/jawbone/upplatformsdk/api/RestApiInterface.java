@@ -6,6 +6,9 @@
 package com.jawbone.upplatformsdk.api;
 
 import com.jawbone.upplatformsdk.api.response.OauthAccessTokenResponse;
+import com.jawbone.upplatformsdk.endpointModels.Endpoint;
+import com.jawbone.upplatformsdk.endpointModels.body.Body;
+import com.jawbone.upplatformsdk.endpointModels.body.BodyCompositionEvent;
 import com.jawbone.upplatformsdk.endpointModels.move.Move;
 import com.jawbone.upplatformsdk.utils.UpPlatformSdkConstants;
 
@@ -88,6 +91,12 @@ public interface RestApiInterface {
         @Path(UpPlatformSdkConstants.API_VERSION) String version,
         @QueryMap HashMap<String, Integer> hashMap,
         Callback<Move> response
+    );
+
+    @GET("/nudge/api/{version}/users/@me/moves")
+    Move getMoveEventsList(
+            @Path(UpPlatformSdkConstants.API_VERSION) String version,
+            @QueryMap HashMap<String, Integer> hashMap
     );
 
     @GET("/nudge/api/{version}/moves/{xid}")
@@ -259,14 +268,14 @@ public interface RestApiInterface {
     void getBodyEventsList(
         @Path(UpPlatformSdkConstants.API_VERSION) String version,
         @QueryMap HashMap<String, Integer> hashMap,
-        Callback<Object> response
+        Callback<Body> response
     );
 
     @GET("/nudge/api/{version}/body_events/{xid}")
     void getBodyEvent(
         @Path(UpPlatformSdkConstants.API_VERSION) String version,
         @Path(UpPlatformSdkConstants.XID) String xid,
-        Callback<Object> response
+        Callback<BodyCompositionEvent> response
     );
 
     @Multipart
@@ -274,14 +283,14 @@ public interface RestApiInterface {
     void createBodyEvent(
         @Path(UpPlatformSdkConstants.API_VERSION) String version,
         @PartMap HashMap<String, Object> hashMap,
-        Callback<Object> response
+        Callback<BodyCompositionEvent> response
     );
 
     @DELETE("/nudge/api/{version}/body_events/{xid}")
     void deleteBodyEvent(
         @Path(UpPlatformSdkConstants.API_VERSION) String version,
         @Path(UpPlatformSdkConstants.XID) String xid,
-        Callback<Object> response
+        Callback<Endpoint> response
     );
 
     /*

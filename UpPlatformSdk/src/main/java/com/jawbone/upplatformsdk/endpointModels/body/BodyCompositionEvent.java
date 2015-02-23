@@ -1,4 +1,4 @@
-package com.jawbone.upplatformsdk.endpointModels.move;
+package com.jawbone.upplatformsdk.endpointModels.body;
 
 import com.google.gson.annotations.SerializedName;
 import com.jawbone.upplatformsdk.endpointModels.Endpoint;
@@ -9,22 +9,22 @@ import com.jawbone.upplatformsdk.utils.UpPlatformSdkUtils;
  *
  * @author Marcus Gabilheri
  * @version 1.0
- * @since 2/13/15.
+ * @since 2/14/15.
  */
-public class Move extends Endpoint {
+public class BodyCompositionEvent extends Endpoint {
 
     @SerializedName("data")
-    protected MoveData moveData;
+    BodyItem data;
 
-    public Move() {
+    public BodyCompositionEvent() {
     }
 
-    public MoveData getMoveData() {
-        return moveData;
+    public BodyItem getData() {
+        return data;
     }
 
-    public void setMoveData(MoveData moveData) {
-        this.moveData = moveData;
+    public void setData(BodyItem data) {
+        this.data = data;
     }
 
     @Override
