@@ -26,9 +26,6 @@ public class OauthWebViewActivity extends Activity {
 
     private static final String TAG = OauthWebViewActivity.class.getSimpleName();
 
-    // AccessCode returned from server.
-    private String accessCode;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,16 +44,12 @@ public class OauthWebViewActivity extends Activity {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 Uri uri = Uri.parse(url);
 
-                String code = uri.getQueryParameter("code");
+                String accessCode = uri.getQueryParameter("code");
                 Log.e(TAG, "oauth response from server: " + url);
 
                 // We hijack the GET request to extract the OAuth parameters
-                if(code != null) {
+                if(accessCode != null) {
                     // the GET request contains an authorization code
-                    Log.d(TAG, "user accepted, url is :" + url);
-                    accessCode = code;
-                    Log.d(TAG, "user accepted, code is :" + accessCode);
-
                     view.clearCache(true);
                     Intent i = getIntent();
                     i.putExtra(UpPlatformSdkConstants.ACCESS_CODE, accessCode);
