@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Examples/Examples.iml" filepath="$PROJECT_DIR$/Examples/Examples.iml" />
       <module fileurl="file://$PROJECT_DIR$/Examples/HelloUp/HelloUp.iml" filepath="$PROJECT_DIR$/Examples/HelloUp/HelloUp.iml" />
       <module fileurl="file://$PROJECT_DIR$/UPPlatform_Android_SDK.iml" filepath="$PROJECT_DIR$/UPPlatform_Android_SDK.iml" />
       <module fileurl="file://$PROJECT_DIR$/UpPlatformSdk/UpPlatformSdk.iml" filepath="$PROJECT_DIR$/UpPlatformSdk/UpPlatformSdk.iml" />
     </modules>
   </component>
 </project>
-

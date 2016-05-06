@@ -13,8 +13,15 @@
             <option value="$PROJECT_DIR$/UpPlatformSdk" />
           </set>
         </option>
+        <option name="myModules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/Examples" />
+            <option value="$PROJECT_DIR$/Examples/HelloUp" />
+            <option value="$PROJECT_DIR$/UpPlatformSdk" />
+          </set>
+        </option>
       </GradleProjectSettings>
     </option>
   </component>
 </project>
-
