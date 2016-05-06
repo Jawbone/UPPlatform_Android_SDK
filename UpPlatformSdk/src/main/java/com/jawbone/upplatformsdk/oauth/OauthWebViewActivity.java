@@ -43,7 +43,10 @@ public class OauthWebViewActivity extends Activity {
         webview.getSettings().setJavaScriptEnabled(true);
 
         webview.setWebViewClient(new WebViewClient() {
-            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                Uri uri = Uri.parse(url);
+
                 String accessCodeFragment = "&code=";
                 Log.e(TAG, "oauth response from server: " + url);
 
@@ -61,7 +64,10 @@ public class OauthWebViewActivity extends Activity {
                     i.putExtra(UpPlatformSdkConstants.ACCESS_CODE, accessCode);
                     setResult(RESULT_OK, i);
                     finish();
+                    return true;
                 }
+
+                return false;
             }
         });
         webview.loadUrl(uri.toString());
