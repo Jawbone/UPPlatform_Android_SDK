@@ -47,16 +47,14 @@ public class OauthWebViewActivity extends Activity {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 Uri uri = Uri.parse(url);
 
-                String accessCodeFragment = "&code=";
+                String code = uri.getQueryParameter("code");
                 Log.e(TAG, "oauth response from server: " + url);
 
-                int start = url.indexOf(accessCodeFragment);
-
                 // We hijack the GET request to extract the OAuth parameters
-                if(start > -1) {
+                if(code != null) {
                     // the GET request contains an authorization code
                     Log.d(TAG, "user accepted, url is :" + url);
-                    accessCode = url.substring(start + accessCodeFragment.length(), url.length());
+                    accessCode = code;
                     Log.d(TAG, "user accepted, code is :" + accessCode);
 
                     view.clearCache(true);
