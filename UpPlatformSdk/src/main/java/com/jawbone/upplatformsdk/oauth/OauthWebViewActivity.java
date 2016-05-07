@@ -17,6 +17,9 @@ import android.webkit.WebViewClient;
 
 import com.jawbone.upplatformsdk.R;
 import com.jawbone.upplatformsdk.utils.UpPlatformSdkConstants;
+import com.jawbone.upplatformsdk.utils.UpPlatformSdkConstants.UpPlatformAuthScope;
+
+import java.util.ArrayList;
 
 /**
  * Simple Web View for Oauth authorization, we display the web page so that
@@ -62,5 +65,22 @@ public class OauthWebViewActivity extends Activity {
             }
         });
         webview.loadUrl(uri.toString());
+    }
+
+    /**
+     * Launch a webview to start client authentication to obtain a token.
+     * @param activity          - The activity instance that will get callback
+     * @param request_code      - The request code used for startActivityForResult
+     * @param clientId          - The client id
+     * @param callbackUrl       - OAuth Callback used
+     * @param authScope         - Scope of Authentication
+     */
+    public static void connect(Activity activity, int request_code, String clientId, String callbackUrl, ArrayList<UpPlatformAuthScope> authScope) {
+        Uri.Builder builder = OauthUtils.setOauthParameters(clientId, callbackUrl, authScope);
+
+        Intent intent = new Intent(OauthWebViewActivity.class.getName());
+        intent.putExtra(UpPlatformSdkConstants.AUTH_URI, builder.build());
+
+        activity.startActivityForResult(intent, request_code);
     }
 }
