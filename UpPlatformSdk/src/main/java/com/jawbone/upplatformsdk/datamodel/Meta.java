@@ -7,19 +7,19 @@ package com.jawbone.upplatformsdk.datamodel;
 
 public class Meta {
 
-    public Integer code;
+    protected int code;
 
-    public String message;
+    protected String message;
 
-    public String userXid;
+    protected String userXid;
 
-    public Integer time;
+    protected Integer time;
 
-    public String errorType;
+    protected String errorType;
 
-    public String errorDetail;
+    protected String errorDetail;
 
-    public String errorUserMsg;
+    protected String errorUserMsg;
 
     public Integer getCode() {
         return code;

@@ -5,6 +5,7 @@
  */
 package com.jawbone.upplatformsdk.api;
 
+import com.jawbone.upplatformsdk.api.response.JBTrendsResponse;
 import com.jawbone.upplatformsdk.api.response.OauthAccessTokenResponse;
 import com.jawbone.upplatformsdk.utils.UpPlatformSdkConstants;
 
@@ -393,7 +394,7 @@ public interface RestApiInterface {
     void getTrends(
             @Path(UpPlatformSdkConstants.API_VERSION) String version,
             @QueryMap HashMap<String, Object> hashMap,
-            Callback<Object> response
+            Callback<JBTrendsResponse> response
     );
 
     /*
