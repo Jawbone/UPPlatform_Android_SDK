@@ -28,8 +28,52 @@ public class JBTrendsResponse extends JBResponse {
     }
 
     public static class JBTrendMetrics {
-        protected Integer m_steps;
-        protected Integer m_workout_time;
+        //User Metrics
+        protected Float gender;
+        protected Float weight;
+        protected Float height;
+        protected Float age;
+
+        //Food Metrics
+        protected Float e_protein;
+        protected Float e_cholesterol;
+        protected Float e_calcium;
+        protected Float e_calories;
+        protected Float e_unsat_fat;
+        protected Float e_sodium;
+        protected Float e_sugar;
+        protected Float e_carbs;
+        protected Float e_fiber;
+        protected Float e_sat_fat;
+
+        //Sleep Metrics
+        protected Float s_quality;
+        protected Float s_light;
+        protected Float s_bedtime;
+        protected Float s_awake_time;
+        protected Float s_asleep_time;
+        protected Float s_awake;
+        protected Float s_duration;
+        protected Float s_rem;
+        protected Float s_sound;
+
+        //Workout / Move metrics
+        protected Float m_steps;
+        protected Float m_workout_time;
+        protected Float m_distance;
+        protected Float m_lcat;
+        protected Float m_lcit;
+        protected Float m_calories;
+        protected Float m_total_calories;
+        protected Float m_active_time;
+
+        //Other
+        protected Float goal_body_weight_intent;
+        protected Float goal_body_weight;
+        protected Float body_fat;
+        protected Float pal;
+        protected Float rhr;
+        protected Float bmr;
     }
 
     public static class TrendsDeserializer implements JsonDeserializer<JBTrendData> {
@@ -37,14 +81,14 @@ public class JBTrendsResponse extends JBResponse {
         @Override
         public JBTrendData deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
 
-            JBTrendData jd = new JBTrendData();
+            JBTrendData trend = new JBTrendData();
 
             JsonArray jobject = (JsonArray) json;
 
-            jd.date = jobject.get(0).getAsString();
-            jd.mets = new Gson().fromJson(jobject.get(1), JBTrendMetrics.class);
+            trend.date = jobject.get(0).getAsString();
+            trend.mets = new Gson().fromJson(jobject.get(1), JBTrendMetrics.class);
 
-            return jd;
+            return trend;
         }
     }
 }
