@@ -38,6 +38,8 @@ public class HelloUpActivity extends Activity {
 
     private static final String TAG = HelloUpActivity.class.getSimpleName();
 
+    private static final int OAUTH_REQUEST_CODE = 25;
+
     // These are obtained after registering on Jawbone Developer Portal
     // Credentials used here are created for "Test-App1"
     private static final String CLIENT_ID = "_W1Vw3ksfpQ";
@@ -65,27 +67,30 @@ public class HelloUpActivity extends Activity {
             @Override
             public void onClick(View v) {
             Intent intent = getIntentForWebView();
-            startActivityForResult(intent, UpPlatformSdkConstants.JAWBONE_AUTHORIZE_REQUEST_CODE);
+            startActivityForResult(intent, OAUTH_REQUEST_CODE);
             }
         });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == UpPlatformSdkConstants.JAWBONE_AUTHORIZE_REQUEST_CODE && resultCode == RESULT_OK) {
 
-            String code = data.getStringExtra(UpPlatformSdkConstants.ACCESS_CODE);
-            if (code != null) {
-                //first clear older accessToken, if it exists..
-                ApiManager.getRequestInterceptor().clearAccessToken();
+        if(resultCode == RESULT_OK) {
+            if (requestCode == OAUTH_REQUEST_CODE) {
+                String code = data.getStringExtra(UpPlatformSdkConstants.ACCESS_CODE);
+                if (code != null) {
+                    //first clear older accessToken, if it exists..
+                    ApiManager.getRequestInterceptor().clearAccessToken();
 
-                ApiManager.getRestApiInterface().getAccessToken(
-                    CLIENT_ID,
-                    CLIENT_SECRET,
-                    code,
-                    accessTokenRequestListener);
+                    ApiManager.getRestApiInterface().getAccessToken(
+                            CLIENT_ID,
+                            CLIENT_SECRET,
+                            code,
+                            accessTokenRequestListener);
+                }
             }
         }
+
    }
 
     private Callback accessTokenRequestListener = new Callback<OauthAccessTokenResponse>() {
