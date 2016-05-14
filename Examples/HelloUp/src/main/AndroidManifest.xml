@@ -22,14 +22,6 @@
         </activity>
 
         <activity
-            android:name="com.jawbone.upplatformsdk.oauth.OauthWebViewActivity">
-            <intent-filter>
-                <action android:name="com.jawbone.upplatformsdk.oauth.OauthWebViewActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-        <activity
             android:name=".UpApiListActivity">
             <intent-filter>
                 <action android:name="com.jawbone.helloup.UpApiListActivity" />
