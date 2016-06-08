@@ -118,7 +118,7 @@ The following UP Platform End points are supported in this SDK:
 - [Moves](https://jawbone.com/up/developer/endpoints/moves)
 - [Custom](https://jawbone.com/up/developer/endpoints/generic_events)
 - [Workouts](https://jawbone.com/up/developer/endpoints/workouts)
-- [Sleep](https://jawbone.com/up/developer/endpoints/sleep)
+- [Sleep](https://jawbone.com/up/developer/endpoints/sleeps)
 - [Body](https://jawbone.com/up/developer/endpoints/body)
 - [Goals](https://jawbone.com/up/developer/endpoints/goals)
 - [Moods](https://jawbone.com/up/developer/endpoints/mood)
